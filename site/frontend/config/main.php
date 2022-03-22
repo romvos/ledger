@@ -1,4 +1,6 @@
 <?php
+use frontend\modules\data\ModuleData;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -36,14 +38,19 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/action' => '<module>/<controller>/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
+    'modules' => [
+        'data' => ['class' => ModuleData::class],
+    ],
 ];
