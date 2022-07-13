@@ -23,7 +23,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Добавить', [
+            'id' => 'action-add-checkout-item',
+            'class' => 'btn btn-success',
+        ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

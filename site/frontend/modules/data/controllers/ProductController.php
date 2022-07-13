@@ -2,6 +2,7 @@
 
 namespace frontend\modules\data\controllers;
 
+use frontend\modules\data\actions\product\ActionProductSearch;
 use frontend\modules\data\models\Product;
 use frontend\modules\data\models\ProductSearch;
 use yii\web\Controller;
@@ -29,6 +30,16 @@ class ProductController extends Controller
                 ],
             ]
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return array_merge(parent::actions(), [
+            'search' => ActionProductSearch::class,
+        ]);
     }
 
     /**

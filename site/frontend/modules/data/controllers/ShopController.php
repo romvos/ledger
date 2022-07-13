@@ -2,6 +2,7 @@
 
 namespace frontend\modules\data\controllers;
 
+use frontend\modules\data\actions\shop\ShopSearchAction;
 use frontend\modules\data\models\Currency;
 use frontend\modules\data\models\Shop;
 use frontend\modules\data\models\ShopSearch;
@@ -31,6 +32,16 @@ class ShopController extends Controller
                 ],
             ]
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return array_merge(parent::actions(), [
+            'search' => ShopSearchAction::class,
+        ]);
     }
 
     /**

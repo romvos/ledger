@@ -35,6 +35,9 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Магазины', 'url' => ['/data/shop']],
+        ['label' => 'Покупки', 'url' => ['/data/checkout']],
+        //
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],

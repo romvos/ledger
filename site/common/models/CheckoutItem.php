@@ -35,8 +35,7 @@ class CheckoutItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'checkout_id', 'priceUnit', 'priceItem', 'amountUnit'], 'required'],
-            [['product_id', 'checkout_id', 'discountPercent', 'discountAbsolute'], 'default', 'value' => null],
+            [['product_id', 'checkout_id', 'priceUnit', 'amountUnit'], 'required'],
             [['product_id', 'checkout_id', 'discountPercent', 'discountAbsolute'], 'integer'],
             [['priceUnit', 'priceItem', 'amountUnit'], 'number'],
             [['checkout_id'], 'exist', 'skipOnError' => true, 'targetClass' => Checkout::className(), 'targetAttribute' => ['checkout_id' => 'id']],

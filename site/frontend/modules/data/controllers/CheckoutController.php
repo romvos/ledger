@@ -2,8 +2,14 @@
 
 namespace frontend\modules\data\controllers;
 
+use frontend\modules\data\actions\checkout\ActionCheckoutAddItem;
+use frontend\modules\data\actions\checkout\ActionCheckoutCreateByShop;
+use frontend\modules\data\actions\checkout\ActionCheckoutFillingForm;
+use frontend\modules\data\actions\checkout\ActionCheckoutRemoveItem;
 use frontend\modules\data\models\Checkout;
 use frontend\modules\data\models\CheckoutSearch;
+use frontend\modules\data\models\Shop;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,6 +35,19 @@ class CheckoutController extends Controller
                 ],
             ]
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return array_merge(parent::actions(), [
+            'create-by-shop' => ActionCheckoutCreateByShop::class,
+            'filling-form' => ActionCheckoutFillingForm::class,
+            'add-item' => ActionCheckoutAddItem::class,
+            'remove-item' => ActionCheckoutRemoveItem::class,
+        ]);
     }
 
     /**
@@ -81,6 +100,12 @@ class CheckoutController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionTest()
+    {
+
+    }
+
 
     /**
      * Updates an existing Checkout model.

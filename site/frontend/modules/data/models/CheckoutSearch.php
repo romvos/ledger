@@ -11,6 +11,8 @@ use frontend\modules\data\models\Checkout;
  */
 class CheckoutSearch extends Checkout
 {
+    public $shopTitle;
+
     /**
      * {@inheritdoc}
      */
@@ -65,6 +67,7 @@ class CheckoutSearch extends Checkout
             'updatedAt' => $this->updatedAt,
         ]);
 
+        $query->andFilterWhere(['ilike', 'comment', $this->comment]);
         $query->andFilterWhere(['ilike', 'comment', $this->comment]);
 
         return $dataProvider;
