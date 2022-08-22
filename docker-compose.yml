@@ -2,9 +2,11 @@ version: '3.2'
 
 services:
   frontend:
+    container_name: ${APP_NAME}_${APP_ENV}_app
     build:
       context: ./docker/8.1
       dockerfile: app.df
+    tty: true
     ports:
       - '${APP_PORT:-8000}:8000'
     volumes:
@@ -31,9 +33,9 @@ services:
 #      - MYSQL_USER=yii2advanced
 #      - MYSQL_PASSWORD=secret
 
-  pgsql:
-    image: postgres:14
-    environment:
-      - POSTGRES_DB=ledger
-      - POSTGRES_USER=ledger
-      - POSTGRES_PASSWORD=ledger
+#  pgsql:
+#    image: postgres:14
+#    environment:
+#      - POSTGRES_DB=ledger
+#      - POSTGRES_USER=ledger
+#      - POSTGRES_PASSWORD=ledger
