@@ -8,12 +8,13 @@ services:
       dockerfile: app.df
     tty: true
     ports:
-      - '${APP_PORT:-8000}:8000'
+      - '${APP_PORT}:80'
     volumes:
       # Re-use local composer cache via host-volume
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+      - ./docker/8.1/nginx:/etc/nginx/sites-available
 
 #  backend:
 #    build: backend
