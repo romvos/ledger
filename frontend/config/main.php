@@ -1,4 +1,7 @@
 <?php
+
+use frontend\modules\data\ModuleData;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -36,14 +39,17 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<module:[a-z-]+>/<controller:[a-z-]+>/<action:[a-z-]+>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<module:[a-z-]+>/<controller:[a-z-]+>/<action:[a-z-]+>' => '<module>/<controller>/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
+    'modules' => [
+        'data' => ['class' => ModuleData::class],
+    ],
 ];
