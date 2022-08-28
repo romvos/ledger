@@ -34,9 +34,13 @@ services:
 #      - MYSQL_USER=yii2advanced
 #      - MYSQL_PASSWORD=secret
 
-#  pgsql:
-#    image: postgres:14
-#    environment:
-#      - POSTGRES_DB=ledger
-#      - POSTGRES_USER=ledger
-#      - POSTGRES_PASSWORD=ledger
+  pgsql:
+    container_name: ${APP_NAME}_${APP_ENV}_db_main
+    hostname: db_main
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=ledger
+      - POSTGRES_USER=ledger
+      - POSTGRES_PASSWORD=ledger
+    volumes:
+      - ${DB_DATA_FILEPATH}:/var/lib/postgresql/data/

@@ -1,12 +1,14 @@
 <?php
 
+use yii\db\Connection;
+
 return [
     'components' => [
         'db' => [
-            'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
-            'username' => 'root',
-            'password' => '',
+            'class' => Connection::class,
+            'dsn' => 'pgsql:host=db_main;dbname=ledger',
+            'username' => 'ledger',
+            'password' => 'ledger',
             'charset' => 'utf8',
         ],
         'mailer' => [

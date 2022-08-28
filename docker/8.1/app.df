@@ -30,9 +30,15 @@ RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php')
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && chmod +x /usr/local/bin/composer
 
-RUN apt-get install -y nginx \
+
+RUN mkdir -p /run/nginx && apt-get install -y nginx \
+    && rm -rf /etc/nginx/sites-enabled/* \
     && ln -s /etc/nginx/sites-available/default.ngx /etc/nginx/sites-enabled
+
+RUN apt-get install -y supervisor
 
 EXPOSE ${APP_PORT}
 
-CMD ["/bin/bash"]
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+CMD ["/usr/bin/supervisord"]
