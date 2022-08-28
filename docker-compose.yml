@@ -2,16 +2,19 @@ version: '3.2'
 
 services:
   frontend:
+    container_name: ${APP_NAME}_${APP_ENV}_app
     build:
       context: ./docker/8.1
       dockerfile: app.df
+    tty: true
     ports:
-      - '${APP_PORT:-8000}:8000'
+      - '${APP_PORT}:80'
     volumes:
       # Re-use local composer cache via host-volume
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+      - ./docker/8.1/nginx:/etc/nginx/sites-available
 
 #  backend:
 #    build: backend
@@ -32,8 +35,12 @@ services:
 #      - MYSQL_PASSWORD=secret
 
   pgsql:
+    container_name: ${APP_NAME}_${APP_ENV}_db_main
+    hostname: db_main
     image: postgres:14
     environment:
       - POSTGRES_DB=ledger
       - POSTGRES_USER=ledger
       - POSTGRES_PASSWORD=ledger
+    volumes:
+      - ${DB_DATA_FILEPATH}:/var/lib/postgresql/data/
