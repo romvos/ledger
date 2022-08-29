@@ -7,6 +7,13 @@ use yii\db\ActiveQuery;
 
 class CheckoutItem extends BaseModel
 {
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->priceItem = $this->calculatePriceItem();
+    }
+
     /**
      * @param $runValidation
      * @param $attributeNames
@@ -30,10 +37,10 @@ class CheckoutItem extends BaseModel
     public function calculatePriceItem()
     {
         $discountAmountPercent = $this->discountPercent && !$this->discountAbsolute
-            ? $this->priceUnit / 100 * $this->discountPercent
+            ? $this->priceUnit / 100 * (float)$this->discountPercent
             : 0;
 
-        $priceUnit = $this->priceUnit - $discountAmountPercent - $this->discountAbsolute;
+        $priceUnit = $this->priceUnit - $discountAmountPercent - (float)$this->discountAbsolute;
         $this->priceItem = $this->amountUnit * $priceUnit;
 
         return $this->priceItem;
