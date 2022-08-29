@@ -28,7 +28,7 @@ server {
 
     location / {
         index index.html $yii_bootstrap;
-        try_files $uri $uri/ /index.php;
+        try_files $uri $uri/ /index.php?$query_string;
     }
 
     location ~ ^/(protected|framework|themes/\w+/views) {
