@@ -32,9 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $checkout->shop->title ?>,
             </span>
             <?= Html::encode($this->title); ?>
-
         </h2>
-
     </div>
 
     <div class="row">
@@ -115,10 +113,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 -
                             </button>
                         </span>
-                        <span class="col-md-5">
+                        <span class="col-md-5" title="<?= $checkoutItem->product->title ?>">
                             <?php
                                 $title = mb_strlen($checkoutItem->product->title) > 30
-                                    ? mb_substr($checkoutItem->product->title, 0, 47) . '...'
+                                    ? mb_substr($checkoutItem->product->title, 0, 27) . '...'
                                     : $checkoutItem->product->title;
                             ?>
                             <?= htmlentities($title) ?>
@@ -128,20 +126,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         </span>
                         <span class="col-md-3">
                             <?php
-                                $discount = '';
+                                $discountItems = [];
                                 if ($checkoutItem->discountPercent) {
-                                    $discount = implode('', [
+                                    $discountItems = [
                                         "\t -",
                                         $checkoutItem->discountPercent,
                                         '%',
-                                    ]);
-                                }
-
-                                if (empty($discount) && $checkoutItem->discountAbsolute) {
-                                    $discount = "\t -" . $checkoutItem->discountAbsolute;
+                                    ];
+                                } elseif ($checkoutItem->discountAbsolute) {
+                                    $discountItems = [
+                                        "\t -",
+                                        $checkoutItem->discountAbsolute,
+                                    ];
                                 }
                             ?>
-                            <?= number_format($checkoutItem->priceUnit, 2) . $discount ?>
+                            <?= number_format($checkoutItem->priceUnit, 2) . implode('', $discountItems) ?>
                         </span>
                         <span class="col-md-2">
                             <?= number_format($checkoutItem->priceItem, 2) ?>
